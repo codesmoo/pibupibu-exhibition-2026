@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work 01 · Audio Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg: #f4f1ea;
+        --ink: #1a1814;
+        --muted: #6b6358;
+        --line: #d4cfc4;
+        --accent: #8b3a2f;
+        --card: #ffffff;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Noto Sans KR", "Noto Sans JP", "Noto Sans SC", sans-serif;
+        font-weight: 300;
+        line-height: 1.6;
+        min-height: 100vh;
+        padding: 2rem 1.5rem 4rem;
+      }
+
+      .container {
+        max-width: 560px;
+        margin: 0 auto;
+      }
+
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        margin-bottom: 2rem;
+        transition: color 0.3s ease;
+      }
+
+      .back:hover {
+        color: var(--accent);
+      }
+
+      /* Language tabs - sticky at top */
+      .lang-tabs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.4rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .lang-tab {
+        background: transparent;
+        border: 1px solid var(--line);
+        padding: 0.7rem 0.25rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 0.95rem;
+        color: var(--muted);
+        cursor: pointer;
+        transition: all 0.25s ease;
+        letter-spacing: 0.03em;
+      }
+
+      .lang-tab:hover {
+        border-color: var(--ink);
+        color: var(--ink);
+      }
+
+      .lang-tab.active {
+        background: var(--ink);
+        color: var(--bg);
+        border-color: var(--ink);
+      }
+
+      /* Work title */
+      .work-meta {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1rem;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.05em;
+      }
+
+      h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 300;
+        font-size: clamp(2rem, 7vw, 2.75rem);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        margin-bottom: 2.5rem;
+      }
+
+      /* Section base */
+      .section {
+        margin-bottom: 2.5rem;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+      }
+
+      .section-icon {
+        font-size: 1.1rem;
+        opacity: 0.85;
+      }
+
+      .section-title {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .duration {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 0.95rem;
+        color: var(--muted);
+        margin-left: auto;
+      }
+
+      /* Audio player card */
+      .player-card {
+        background: var(--card);
+        padding: 1.5rem;
+        border: 1px solid var(--line);
+      }
+
+      audio {
+        width: 100%;
+        height: 44px;
+        display: block;
+      }
+
+      audio::-webkit-media-controls-panel {
+        background-color: var(--bg);
+      }
+
+      /* Script toggle */
+      .script-toggle {
+        margin-top: 0.75rem;
+        width: 100%;
+        background: transparent;
+        border: none;
+        padding: 0.85rem 0;
+        text-align: left;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.85rem;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-bottom: 1px solid var(--line);
+        transition: color 0.25s ease;
+      }
+
+      .script-toggle:hover {
+        color: var(--ink);
+      }
+
+      .script-toggle .arrow {
+        display: inline-block;
+        transition: transform 0.3s ease;
+        font-size: 0.7rem;
+      }
+
+      .script-toggle.open .arrow {
+        transform: rotate(180deg);
+      }
+
+      .script-content {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.4s ease,
+          padding 0.4s ease;
+      }
+
+      .script-content.open {
+        max-height: 2000px;
+        padding: 1.25rem 0 0.5rem;
+      }
+
+      .script-text {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1rem;
+        line-height: 1.75;
+        color: var(--ink);
+        white-space: pre-line;
+      }
+
+      /* Description section */
+      .description-card {
+        background: var(--card);
+        padding: 1.75rem 1.5rem;
+        border: 1px solid var(--line);
+      }
+
+      .label-title {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 400;
+        font-size: 1.35rem;
+        margin-bottom: 0.4rem;
+        line-height: 1.3;
+      }
+
+      .label-meta {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 1.25rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .label-text {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.05rem;
+        line-height: 1.75;
+        white-space: pre-line;
+      }
+
+      /* Language-specific visibility */
+      [data-lang-content] {
+        display: none;
+      }
+      [data-lang-content].active {
+        display: block;
+      }
+
+      .footer {
+        margin-top: 3.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--line);
+        font-size: 0.75rem;
+        color: var(--muted);
+        text-align: center;
+        letter-spacing: 0.1em;
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 1.5rem 1.25rem 3rem;
+        }
+        .lang-tab {
+          font-size: 0.85rem;
+          padding: 0.7rem 0.2rem;
+        }
+        h1 {
+          margin-bottom: 2rem;
+        }
+        .player-card,
+        .description-card {
+          padding: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="../" class="back">← Back to Index</a>
+
+      <!-- Language switcher -->
+      <div class="lang-tabs">
+        <button class="lang-tab active" data-lang="ko">한국어</button>
+        <button class="lang-tab" data-lang="en">EN</button>
+        <button class="lang-tab" data-lang="ja">日本語</button>
+        <button class="lang-tab" data-lang="zh">中文</button>
+      </div>
+
+      <!-- Work title (language-aware) -->
+      <div class="work-meta">Work 01</div>
+
+      <div data-lang-content="ko" class="active">
+        <h1>전시 도입부</h1>
+      </div>
+      <div data-lang-content="en">
+        <h1>Before We Begin</h1>
+      </div>
+      <div data-lang-content="ja">
+        <h1>はじまりのまえに</h1>
+      </div>
+      <div data-lang-content="zh">
+        <h1>写在开始之前</h1>
+      </div>
+
+      <!-- AUDIO GUIDE SECTION -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-icon">🎧</span>
+          <span class="section-title" data-lang-content="ko"
+            >오디오 가이드</span
+          >
+          <span
+            class="section-title"
+            data-lang-content="en"
+            style="display: none"
+            >Audio Guide</span
+          >
+          <span
+            class="section-title"
+            data-lang-content="ja"
+            style="display: none"
+            >オーディオガイド</span
+          >
+          <span
+            class="section-title"
+            data-lang-content="zh"
+            style="display: none"
+            >语音导览</span
+          >
+          <span class="duration" id="duration">1:10</span>
+        </div>
+
+        <div class="player-card">
+          <audio id="audioPlayer" controls preload="metadata">
+            <source id="audioSource" src="ko.mp3" type="audio/mpeg" />
+          </audio>
+
+          <button class="script-toggle" id="scriptToggle">
+            <span class="arrow">▼</span>
+            <span data-lang-content="ko" class="active">스크립트 보기</span>
+            <span data-lang-content="en">Show Script</span>
+            <span data-lang-content="ja">スクリプトを表示</span>
+            <span data-lang-content="zh">显示文字稿</span>
+          </button>
+
+          <div class="script-content" id="scriptContent">
+            <div data-lang-content="ko" class="active">
+              <p class="script-text">
+                여러분, 안녕하세요.여러분은 '후각'이라는 감각에 대해, 얼마나
+                알고 계신가요? 시각에 관한 학술 연구가 200만 건에 이르는 동안,
+                후각 연구는 그 20분의 1 수준인 10만 건대에 머물러 있습니다.
+                측정하기 어렵고, 설명하기는 더 어려운 감각. 그래서 여전히 많은
+                부분이, 밝혀지지 않은 채로 남아 있어요. 한 연구에 따르면, 다섯
+                가지 감각 중 하나를 포기해야 한다면, 무려 85%의 사람이 '후각'을
+                고르겠다고 답했습니다. 누군가는 머리카락을 지키기 위해, 또
+                누군가는 휴대폰 한 대를 지키기 위해, 망설임 없이 후각을
+                내려놓겠다고 했어요. 그렇게 후각은, 우리 감각 중 가장 가볍게
+                포기되는 자리에 놓여 있습니다. 하지만 후각은, 우리의 그 어떤
+                감각보다도 뇌의 감정과 기억에 가장 가까이 맞닿아 있는, 가장
+                근원적이고 본능적인 감각입니다.골목 끝에서 스친 냄새 하나가
+                오래전 잊은 계절을 다시 불러오고, 말로는 설명되지 않는 어떤
+                마음이 향기 속에 고스란히 살아 있는 것도, 다 그 때문이겠지요.
+                정말, 이 감각은 그렇게 간과되어도 괜찮은 걸까요?저희 피부피부는,
+                많은 사람이 스쳐 지나가는 이 감각을 오래 들여다봐 왔습니다.
+                그리고 오늘, 저희가 집중하고, 애정하고, 연구해 온 후각의
+                놀라움과 신비를, 이 자리에 펼쳐두었어요.보이지 않는 감각을
+                만나러 와주셔서, 정말 감사합니다.자, 그럼 지금부터 익숙하고도
+                낯선 감각, 후각을, 피부피부와 함께 천천히 느껴보실까요?
+              </p>
+            </div>
+            <div data-lang-content="en">
+              <p class="script-text">
+                Hello, everyone. How much do you really know about the sense of
+                smell? While academic studies on vision number around two
+                million, research on olfaction sits at roughly one-twentieth of
+                that — somewhere in the hundred thousands. A sense difficult to
+                measure, and even harder to describe. And so, much of it still
+                remains unexplored. According to one study, when asked which of
+                the five senses they would give up if they had to, a striking
+                85% of people chose smell. Some said they'd let it go to keep
+                their hair; others, to keep their phone. Without hesitation.
+                That's how lightly olfaction is set down — placed at the very
+                edge of what we're willing to lose. And yet, smell is the sense
+                most closely tied to the emotional and memory centers of the
+                brain — the most primal, the most instinctive of them all. A
+                single scent caught at the end of an alley can summon back a
+                season long forgotten; a feeling words could never quite reach
+                lives on, intact, inside a fragrance. All of it, perhaps,
+                because of this. Is it really a sense we can afford to overlook?
+                We at PIBU PIBU have spent a long time looking closely at this
+                sense — the one most people simply pass by. And today, we've
+                laid out before you all the wonder, the mystery, the care, and
+                the curiosity we've gathered along the way. Thank you, truly,
+                for coming to meet a sense you cannot see. Now then — shall we
+                begin? Slowly, together with PIBU PIBU, let's feel our way into
+                this sense both familiar and strange: the sense of smell.
+              </p>
+            </div>
+            <div data-lang-content="ja">
+              <p class="script-text">
+                皆さま、こんにちは。
+                皆さまは「嗅覚」という感覚について、どれほどご存じでしょうか。
+                視覚に関する学術研究が二百万件にのぼる一方で、嗅覚研究はその二十分の一ほど——十数万件にとどまっています。測ることが難しく、説明することはさらに難しい感覚。だからこそ、今もなお多くの部分が、明かされぬまま残されているのです。
+                ある研究によれば、五感のうち一つを手放さなければならないとしたら、なんと85%もの人が「嗅覚」を選ぶと答えました。ある人は髪を守るために、またある人は携帯電話一台を守るために、ためらいもなく嗅覚を手放すと言ったのです。こうして嗅覚は、私たちの感覚の中でもっとも軽やかに手放される場所に置かれています。
+                けれども嗅覚は、ほかのどの感覚よりも、脳の感情と記憶にもっとも近く触れている、もっとも根源的で本能的な感覚なのです。路地の先でふと掠めた一つの香りが、遠い昔に忘れた季節を呼び戻し、言葉では言い尽くせぬある想いが、香りの中にそのまま息づいているのも——きっと、すべてそのためでしょう。
+                本当に、この感覚は、そんなふうに見過ごされてしまってよいのでしょうか。
+                私たちPIBU
+                PIBUは、多くの人が通り過ぎていくこの感覚を、長く見つめ続けてきました。そして今日、私たちが向き合い、慈しみ、研究してきた嗅覚の驚きと神秘を、この場にそっと広げてみました。
+                目には見えぬ感覚に会いに来てくださって、本当にありがとうございます。
+                それでは——馴染み深く、それでいて見知らぬこの感覚、嗅覚を、PIBU
+                PIBUとともに、ゆっくりと感じてみませんか。
+              </p>
+            </div>
+            <div data-lang-content="zh">
+              <p class="script-text">
+                各位，您好。 关于"嗅觉"这一感官，您又了解多少呢？
+                视觉相关的学术研究多达两百万项，而嗅觉研究仅停留在其二十分之一的水平——十几万项。一种难以测量、更难以描述的感官。因此，至今仍有许多部分尚未被揭开。
+                据一项研究显示，若必须舍弃五感中的一种，竟有高达85%的人选择放弃"嗅觉"。有人为了保住一头秀发，有人为了保住一部手机，便毫不犹豫地放下了嗅觉。就这样，嗅觉被置于我们感官中最容易被舍弃的位置。
+                然而，嗅觉却是比任何感官都更贴近大脑情感与记忆的，最本源、最本能的感官。巷尾不经意飘过的一缕气味，能唤回早已遗忘的季节；那些言语难以道尽的心绪，也完好地栖息在香气之中——归根结底，皆因如此。
+                这样的感官，真的可以被如此轻易地忽略吗？ 我们PIBU
+                PIBU，长久以来一直凝视着这个被许多人擦肩而过的感官。今天，我们将一直专注、热爱、研究的嗅觉之奇妙与神秘，铺陈于此。
+                感谢您前来，与一种看不见的感官相遇。 那么现在，就让我们与PIBU
+                PIBU一起，慢慢感受这既熟悉又陌生的感官——嗅觉，好吗？
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESCRIPTION SECTION -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-icon">📖</span>
+          <span class="section-title" data-lang-content="ko">작품 설명</span>
+          <span
+            class="section-title"
+            data-lang-content="en"
+            style="display: none"
+            >Description</span
+          >
+          <span
+            class="section-title"
+            data-lang-content="ja"
+            style="display: none"
+            >作品解説</span
+          >
+          <span
+            class="section-title"
+            data-lang-content="zh"
+            style="display: none"
+            >作品说明</span
+          >
+        </div>
+
+        <div class="description-card">
+          <!-- Korean -->
+          <div data-lang-content="ko" class="active">
+            <div class="label-title">지금, 후각 실험이 진행 중입니다.</div>
+            <div class="label-meta">작가명 · 2026 · 매체 정보</div>
+            <p class="label-text">
+              이 공간에는 페퍼민트 향이 흐르고 있습니다. 실제 온도는 그대로인데,
+              당신은 지금 더 시원하게 느끼고 있을지도 모릅니다. 페퍼민트 속
+              멘톨이 코와 피부의 '차가움 센서'를 속이기 때문입니다. 진짜 온도
+              변화 없이도, 뇌는 약 15°C의 시원함을 느낍니다. 실제로 미국의 한
+              쇼핑몰은 매장에 페퍼민트 향을 더해 에어컨 온도를 2~3°C 덜 낮추고도
+              같은 시원함을 유지했습니다. 향 하나로 전기료까지 아낀 셈이죠. 지금
+              느끼는 이 시원함은 — 온도일까요, 향일까요?
+            </p>
+          </div>
+
+          <!-- English -->
+          <div data-lang-content="en">
+            <div class="label-title">A scent experiment is underway.</div>
+            <div class="label-meta">Artist Name · 2026 · Medium</div>
+            <p class="label-text">
+              Peppermint is drifting through this space right now. The actual
+              temperature hasn't changed — but you might be feeling cooler than
+              you were a moment ago. That's because the menthol in peppermint
+              tricks the "cold sensors" in your nose and skin. With no real
+              change in temperature, your brain registers a coolness of about
+              15°C (59°F). It's said that one shopping mall in the U.S. added
+              peppermint to its stores and was able to keep the air conditioning
+              2–3°C (about 4–5°F) warmer while shoppers felt just as cool. A
+              scent that saved on the electricity bill, in other words. So this
+              coolness you're feeling right now — is it temperature, or is it
+              scent?
+            </p>
+          </div>
+
+          <!-- Japanese -->
+          <div data-lang-content="ja">
+            <div class="label-title">今、嗅覚の実験が行われています。</div>
+            <div class="label-meta">作家名 · 2026 · 素材</div>
+            <p class="label-text">
+              この空間にはペパーミントの香りが漂っています。実際の温度は変わっていないのに、あなたは今、少し涼しく感じているかもしれません。
+              ペパーミントに含まれるメントールが、鼻や肌の"冷たさを感じるセンサー"を錯覚させるからです。本当の温度変化がなくても、脳は約15°Cの涼しさを感じ取ります。
+              実際、アメリカのあるショッピングモールでは、店舗にペパーミントの香りを加えることで、エアコンの設定温度を2〜3°C高くしても同じ涼しさを保てたといいます。香り一つで、電気代まで節約できたわけです。
+              今あなたが感じているこの涼しさは——温度でしょうか、それとも香りでしょうか?
+            </p>
+          </div>
+
+          <!-- Chinese -->
+          <div data-lang-content="zh">
+            <div class="label-title">此刻，一场嗅觉实验正在进行。</div>
+            <div class="label-meta">艺术家姓名 · 2026 · 媒材</div>
+            <p class="label-text">
+              空气中正飘散着薄荷的香气。室温并未改变，但您此刻或许感到比刚才更凉爽——因为薄荷中的薄荷醇正在欺骗您鼻腔与皮肤里的"冷感受器"。
+              即便温度未变，大脑也会感知到约15°C的清凉。
+              据说美国一家购物中心曾在店内加入薄荷香气，将空调温度调高了2~3°C，顾客却感觉同样凉爽。一缕香气，省下了一笔电费。
+              那么此刻您感到的这份凉意——究竟是温度，还是香气?
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">EXHIBITION 2026</footer>
+    </div>
+
+    <script>
+      // Language switcher
+      const tabs = document.querySelectorAll(".lang-tab");
+      const audio = document.getElementById("audioPlayer");
+      const source = document.getElementById("audioSource");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const lang = tab.dataset.lang;
+
+          // Update active tab
+          tabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+
+          // Switch all language-aware content
+          document.querySelectorAll("[data-lang-content]").forEach((el) => {
+            if (el.dataset.langContent === lang) {
+              el.classList.add("active");
+              el.style.display = "";
+            } else {
+              el.classList.remove("active");
+              el.style.display = "none";
+            }
+          });
+
+          // Switch audio source
+          audio.pause();
+          source.src = lang + ".mp3";
+          audio.load();
+        });
+      });
+
+      // Initialize: hide non-Korean elements on load
+      document.querySelectorAll("[data-lang-content]").forEach((el) => {
+        if (el.dataset.langContent !== "ko") {
+          el.style.display = "none";
+        }
+      });
+
+      // Script toggle
+      const scriptToggle = document.getElementById("scriptToggle");
+      const scriptContent = document.getElementById("scriptContent");
+
+      scriptToggle.addEventListener("click", () => {
+        scriptToggle.classList.toggle("open");
+        scriptContent.classList.toggle("open");
+      });
+
+      // Auto-update duration display from audio metadata
+      const durationEl = document.getElementById("duration");
+      audio.addEventListener("loadedmetadata", () => {
+        const total = Math.round(audio.duration);
+        const min = Math.floor(total / 60);
+        const sec = total % 60;
+        durationEl.textContent = `${min}:${sec.toString().padStart(2, "0")}`;
+      });
+    </script>
+  </body>
+</html>
