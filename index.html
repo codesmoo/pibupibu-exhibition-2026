@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exhibition 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg: #f4f1ea;
+    --ink: #1a1814;
+    --muted: #6b6358;
+    --line: #d4cfc4;
+    --accent: #8b3a2f;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1.5rem 4rem;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .meta {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+
+  .intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 3rem;
+    padding: 0 0.5rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .works {
+    display: grid;
+    gap: 0;
+  }
+
+  .work-link {
+    display: block;
+    padding: 1.5rem 0.5rem;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    transition: padding 0.3s ease, background 0.3s ease;
+  }
+
+  .work-link:hover {
+    padding-left: 1.5rem;
+    background: rgba(139, 58, 47, 0.03);
+  }
+
+  .work-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+  }
+
+  .work-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--accent);
+    min-width: 2.5rem;
+  }
+
+  .work-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    flex: 1;
+  }
+
+  .work-arrow {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--muted);
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .work-link:hover .work-arrow {
+    transform: translateX(4px);
+    color: var(--accent);
+  }
+
+  .footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  .footer em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 1.5rem 1.25rem 3rem; }
+    .work-link:hover { padding-left: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="meta">2026 · Exhibition</div>
+      <h1>전시회 <em>제목</em></h1>
+      <div class="subtitle">2026.04.28 — 2026.05.11</div>
+    </header>
+
+    <p class="intro">
+      이곳에 전시 소개 글이 들어갑니다. 작품들의 주제, 작가의 의도, 관람 안내 등을 자유롭게 작성해주세요. 각 작품 옆에 부착된 QR코드를 스캔하시면 한국어 설명을 영어, 일본어, 중국어 음성으로 들으실 수 있습니다.
+    </p>
+
+    <div class="section-label">Works</div>
+
+    <nav class="works">
+      <a href="work01/" class="work-link">
+        <div class="work-row">
+          <span class="work-num">01</span>
+          <span class="work-title">작품 제목 하나</span>
+          <span class="work-arrow">→</span>
+        </div>
+      </a>
+      <a href="work02/" class="work-link">
+        <div class="work-row">
+          <span class="work-num">02</span>
+          <span class="work-title">작품 제목 둘</span>
+          <span class="work-arrow">→</span>
+        </div>
+      </a>
+      <a href="work03/" class="work-link">
+        <div class="work-row">
+          <span class="work-num">03</span>
+          <span class="work-title">작품 제목 셋</span>
+          <span class="work-arrow">→</span>
+        </div>
+      </a>
+    </nav>
+
+    <footer class="footer">
+      <em>Audio Guide</em><br>
+      EN · 日本語 · 中文
+    </footer>
+  </div>
+</body>
+</html>
