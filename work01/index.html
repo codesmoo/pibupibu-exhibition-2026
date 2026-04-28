@@ -105,21 +105,21 @@
 
   .lang-tabs {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
     margin-bottom: 1.5rem;
   }
 
   .lang-tab {
     background: transparent;
     border: 1px solid var(--line);
-    padding: 0.85rem 0.5rem;
+    padding: 0.85rem 0.25rem;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--muted);
     cursor: pointer;
     transition: all 0.25s ease;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
   }
 
   .lang-tab:hover {
@@ -175,7 +175,7 @@
 
   @media (max-width: 480px) {
     body { padding: 1.5rem 1.25rem 3rem; }
-    .lang-tab { font-size: 0.95rem; }
+    .lang-tab { font-size: 0.85rem; padding: 0.85rem 0.2rem; }
   }
 </style>
 </head>
@@ -194,16 +194,17 @@
     <div class="lang-section-label">Audio Guide</div>
 
     <div class="lang-tabs">
-      <button class="lang-tab active" data-lang="en" data-name="English">EN</button>
+      <button class="lang-tab active" data-lang="ko" data-name="한국어">한국어</button>
+      <button class="lang-tab" data-lang="en" data-name="English">EN</button>
       <button class="lang-tab" data-lang="ja" data-name="日本語">日本語</button>
       <button class="lang-tab" data-lang="zh" data-name="中文">中文</button>
     </div>
 
     <div class="player-card">
       <div class="now-playing">Now Playing</div>
-      <div class="lang-name" id="langName">English</div>
+      <div class="lang-name" id="langName">한국어</div>
       <audio id="audioPlayer" controls preload="metadata">
-        <source id="audioSource" src="en.mp3" type="audio/mpeg">
+        <source id="audioSource" src="ko.mp3" type="audio/mpeg">
         브라우저가 오디오 재생을 지원하지 않습니다.
       </audio>
     </div>
