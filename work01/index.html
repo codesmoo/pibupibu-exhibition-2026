@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work 01 · Audio Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg: #f4f1ea;
+    --ink: #1a1814;
+    --muted: #6b6358;
+    --line: #d4cfc4;
+    --accent: #8b3a2f;
+    --card: #ffffff;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .container {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .back:hover { color: var(--accent); }
+
+  .work-meta {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 7vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+  }
+
+  .artist {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .description {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .lang-section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lang-section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .lang-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .lang-tab {
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 0.85rem 0.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.05em;
+  }
+
+  .lang-tab:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .lang-tab.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  .player-card {
+    background: var(--card);
+    padding: 1.75rem 1.5rem;
+    border: 1px solid var(--line);
+  }
+
+  .now-playing {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .lang-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--ink);
+  }
+
+  audio {
+    width: 100%;
+    height: 44px;
+  }
+
+  audio::-webkit-media-controls-panel {
+    background-color: var(--bg);
+  }
+
+  .footer {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 1.5rem 1.25rem 3rem; }
+    .lang-tab { font-size: 0.95rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a href="../" class="back">← Back to Index</a>
+
+    <div class="work-meta">Work 01</div>
+    <h1>작품 제목</h1>
+    <div class="artist">작가명 · 2026 · 매체 정보</div>
+
+    <p class="description">
+      이곳에 작품에 대한 한국어 설명이 들어갑니다. 관람객이 음성을 듣기 전이나 후에 읽을 수 있는 텍스트 설명을 제공해주세요.
+    </p>
+
+    <div class="lang-section-label">Audio Guide</div>
+
+    <div class="lang-tabs">
+      <button class="lang-tab active" data-lang="en" data-name="English">EN</button>
+      <button class="lang-tab" data-lang="ja" data-name="日本語">日本語</button>
+      <button class="lang-tab" data-lang="zh" data-name="中文">中文</button>
+    </div>
+
+    <div class="player-card">
+      <div class="now-playing">Now Playing</div>
+      <div class="lang-name" id="langName">English</div>
+      <audio id="audioPlayer" controls preload="metadata">
+        <source id="audioSource" src="en.mp3" type="audio/mpeg">
+        브라우저가 오디오 재생을 지원하지 않습니다.
+      </audio>
+    </div>
+
+    <footer class="footer">EXHIBITION 2026</footer>
+  </div>
+
+<script>
+  const tabs = document.querySelectorAll('.lang-tab');
+  const audio = document.getElementById('audioPlayer');
+  const source = document.getElementById('audioSource');
+  const langName = document.getElementById('langName');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const lang = tab.dataset.lang;
+      const name = tab.dataset.name;
+
+      audio.pause();
+      source.src = lang + '.mp3';
+      audio.load();
+      langName.textContent = name;
+    });
+  });
+</script>
+</body>
+</html>
