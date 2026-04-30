@@ -150,6 +150,90 @@
     color: var(--accent);
   }
 
+ /* Connect section (Kakao + Shop buttons) */
+      .connect {
+        margin-top: 4rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .connect-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .connect-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+
+      .connect-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .connect-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: var(--card, #ffffff);
+        border: 1px solid var(--line);
+        text-decoration: none;
+        overflow: hidden;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          border-color 0.25s ease;
+        min-height: 64px;
+      }
+
+      .connect-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(26, 24, 20, 0.08);
+        border-color: var(--ink);
+      }
+
+      /* Kakao button - uses official button image */
+      .connect-btn.kakao {
+        background: #fee500;
+        border-color: #fee500;
+        padding: 0.5rem 1rem;
+      }
+
+      .connect-btn.kakao img {
+        max-height: 44px;
+        width: auto;
+      }
+
+      /* Shop button - logo + text */
+      .connect-btn.shop {
+        gap: 0.85rem;
+        padding: 1rem 1.5rem;
+      }
+
+      .connect-btn.shop img {
+        max-height: 28px;
+        width: auto;
+      }
+
+      .connect-btn.shop .shop-text {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1.4rem;
+        color: var(--ink);
+        letter-spacing: 0.02em;
+      }
+
   .footer {
     margin-top: 4rem;
     padding-top: 2rem;
@@ -287,6 +371,29 @@
         </div>
       </a>
     </nav>
+
+   <section class="connect">
+        <div class="connect-label">Connect</div>
+        <div class="connect-buttons">
+          <a
+            href="https://pf.kakao.com/_WxixgPT"
+            class="connect-btn kakao"
+            target="_blank"
+            rel="noopener"
+          >
+            <img src="assets/kakao-button.png" alt="카카오톡 채널 추가" />
+          </a>
+          <a
+            href="https://www.pibupibu.co.kr/"
+            class="connect-btn shop"
+            target="_blank"
+            rel="noopener"
+          >
+            <img src="assets/shop-logo.svg" alt="Pibupibu" />
+            <span class="shop-text">Online Shop</span>
+          </a>
+        </div>
+      </section>
 
     <footer class="footer">
       <em>Audio Guide</em><br>
